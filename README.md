@@ -29,7 +29,6 @@ Consequently, we aim to explore the impact of incorporating tangible interfaces 
     - Melody Continuation: Use the Recurrent Neural Network model (MusicRNN) to predict and generate the continuation of a note sequence, returning the extended sequence.
 
   Stage 3: Musical Rendering
-
     - Map the computed melody to physical spatial positions, and use a robotic arm equipped with OpenCV to detect, recognize, and play the physical piano keys.
 
 **3. System Overview & Co-Creation Modes** 

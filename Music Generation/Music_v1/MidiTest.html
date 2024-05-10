@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TestDemo</title>
+    <script src="https://cdn.jsdelivr.net/npm/tone@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magenta/music"></script>
+</head>
+<body>
+<h1>Melody Test</h1>
+<button onclick="completeMelody()">Complete Melody</button>
+<script>
+    // Initialize WebSocket
+    const ws = new WebSocket('ws://192.168.137.213:5532');
+    const notes = [];
+
+
+    ws.onmessage = function(event) {
+        const note = event.data;
+        // Convert note string to MIDI pitch number
+        const pitch = noteToMidi(note);
+        console.log(note);
+        console.log(pitch);
+        // Add note to the sequence
+        if (pitch) {
+            notes.push({ pitch: pitch, startTime: notes.length * 0.5, endTime: (notes.length + 3) * 0.5 });
+            playNote(note);  // Play the received note
+        }
+    };
+
+    // Initialize Tone.js Synth
+    const synth = new Tone.Synth().toDestination();
+
+    function playNote(note) {
+        synth.triggerAttackRelease(note, '8n');
+    }
+
+    // Initialize Magenta.js MusicRNN model
+    // const model = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn');
+    // model.initialize();
+    //
+    // async function completeMelody() {
+    //     const quantizedSequence = mm.sequences.quantizeNoteSequence({ notes, totalTime: notes.length * 0.5 }, 4);
+    //     const continuation = await model.continueSequence(quantizedSequence, 20);  // Complete the melody
+    //     mm.Player().start(continuation);  // Play the completed melody
+    // }
+    // Initialize Magenta.js MusicRNN model
+    const model = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/melody_rnn');
+    model.initialize();
+
+    async function completeMelody() {
+        // 计算音符序列的总持续时间
+        const totalTime = notes.length > 0 ? notes[notes.length - 1].endTime : 1;
+
+        // 量化音符序列
+        const quantizedSequence = mm.sequences.quantizeNoteSequence({ notes, totalTime }, 4);
+
+        // 完成旋律并播放
+        const continuation = await model.continueSequence(quantizedSequence, 20);
+        const player = new mm.Player();
+        player.start(continuation);
+    }
+
+
+    // 确保调用 completeMelody 函数来执行旋律补全和播放
+    completeMelody();
+
+    // Function to convert note string (e.g., "C4") to MIDI pitch number
+    function noteToMidi(note) {
+        const scale = { 'C': 0, 'C#': 1, 'D': 2, 'D#': 3, 'E': 4, 'F': 5, 'F#': 6, 'G': 7, 'G#': 8, 'A': 9, 'A#': 10, 'B': 11 };
+        const octave = parseInt(note.slice(-1), 10);
+        const noteName = note.slice(0, -1);
+        if (scale.hasOwnProperty(noteName) && !isNaN(octave)) {
+            return scale[noteName] + 12 * (octave + 1);
+        }
+        return null;  // Invalid note string
+    }
+</script>
+</body>
+</html>

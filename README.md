@@ -1,9 +1,10 @@
 # BeeMyCoCreator
 A collaborative music project involving multiple people and a robotic arm. It generates subsequent melodies using a recurrent neural network based on user input notes.
 
-![image](https://github.com/RachelR1001/BeeMyCoCreator/assets/148432322/0cabc2a0-25e0-470d-ac06-f4dee4f7d4d7)
+![image](https://github.com/RachelR1001/BeeMyCoCreator/assets/148432322/e22bafbd-ed82-4210-897c-ae683b23b32c)
 
-![image](https://github.com/RachelR1001/BeeMyCoCreator/assets/148432322/94789751-a727-4187-8433-61bf303088df)
+
+![image](https://github.com/RachelR1001/BeeMyCoCreator/assets/148432322/6269085a-7ce6-4d0b-b918-0888517728dd)
 
 
 ## Table of Contents

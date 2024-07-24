@@ -38,4 +38,6 @@ Consequently, we aim to explore the impact of incorporating tangible interfaces 
 ![image](https://github.com/RachelR1001/BeeMyCoCreator/assets/148432322/90b59c60-29b6-4231-a935-fc4628423c74)
 
 ## Prototype
+![3ca7563b7b5d1310e7c7623f81ffd280](https://github.com/user-attachments/assets/f17a717c-eb0c-4bfd-8d5e-9442cc3e07e6)
+
 Demo Video: https://drive.google.com/file/d/1BKs5SPSQnY_7f82DKYORGSf-so-rsW5b/view?usp=sharing
